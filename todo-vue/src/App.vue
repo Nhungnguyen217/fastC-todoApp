@@ -1,18 +1,28 @@
 <script setup>
 import { ref, onMounted, computed, watch } from "vue"
+import { DatePickerComponent as EjsDatepicker } from '@syncfusion/ej2-vue-calendars';
+import { TimePickerComponent as EjsTimepicker } from "@syncfusion/ej2-vue-calendars";
+//Thư viện pick date
 
 // tạo các biến, mảng dữ liệu
-const todos = ref([]) //create empty arr
-const name = ref("") //create empty string
+const todos = ref([])
+const name = ref("")
 const input_content = ref("")
 const input_category = ref(null)
+const input_date = ref(new Date())
+const input_time = ref(new Date())
 
 // các hàm thực thi
 const todos_asc = computed(() => todos.value.sort((a, b) => {
   return b.createdAt - a.createdAt
 }))
 
-//thêm todo vào danh sạc to-do list
+// xóa time detail 
+function removeTime(date = new Date()) {
+  return new Date(date.toDateString());
+}
+
+//thêm todo vào danh sách to-do list
 const addTodo = () => {
   if (input_content.value.trim() === "" | input_category.value === null) {
     return
@@ -22,7 +32,8 @@ const addTodo = () => {
     category: input_category.value,
     done: false,
     createdAt: new Date().getTime(),
-
+    dateEnd: input_date.value.getDate() + "-" + input_date.value.getMonth() + "-" + input_date.value.getFullYear(),
+    timeEnd: input_time.value.getTime()
   })
 
   console.log(input_content.value)
@@ -63,9 +74,13 @@ onMounted(() => {
         <!-- TinyMCE format -->
         <textarea placeholder="e.g Make a to-do app by Vue3" v-model="input_content"></textarea>
 
-
         <!-- Thiết lập thời hạn cho to-do -->
         <h4 id="duration">Set duration:</h4>
+        <div class="control_wrapper">
+          <ejs-datepicker v-model="input_date"></ejs-datepicker>
+          <ejs-timepicker></ejs-timepicker>
+          <p>Date : {{ input_time }}</p>
+        </div>
 
         <!-- Phân loại to-do -->
         <h4>Pick a category</h4>
@@ -96,6 +111,12 @@ onMounted(() => {
           <div class="todo-content">
             <input type="text" v-model="todo.content" />
           </div>
+
+          <!-- timeEnd -->
+          <div class="todo-dateEnd">
+            <input type="text" v-model="todo.dateEnd" />
+          </div>
+
           <div class="action">
             <button class="delete" @click="removeTodo(todo)">Delete</button>
           </div>

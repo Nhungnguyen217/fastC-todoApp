@@ -1,3 +1,14 @@
+/* Calendar */
+@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-vue-calendars/styles/material.css";
+.control_wrapper {
+  max-width: 250px;
+  margin: 0 auto;
+}
+
 :root {
   --primary: #ea40a4;
   --business: #3a82ee;
