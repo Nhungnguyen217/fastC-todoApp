@@ -62,16 +62,6 @@ onMounted(() => {
   todos.value = JSON.parse(localStorage.getItem("todos")) || []
 })
 
-// Kiểm tra thời hạn to-do
-// const deadline = () => {
-//   let i = 0;
-//   while (todos([i]))
-//     if (today > todos.deadline) {
-//       console.log("No")
-//     }
-// }
-// deadline()
-
 </script>
   
 <!-- Sắp xếp -->

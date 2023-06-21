@@ -25,10 +25,11 @@
 }
 
 * {
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
   font-family: "montserrat", sans-serif;
+  max-width: 700px;
 }
 
 input:not([type="radio"]):not([type="checkbox"]),
