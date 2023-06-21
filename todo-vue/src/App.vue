@@ -1,8 +1,10 @@
 <script setup>
+// import libs
 import { ref, onMounted, computed, watch } from "vue"
 import { DatePickerComponent as EjsDatepicker } from '@syncfusion/ej2-vue-calendars';
 import { TimePickerComponent as EjsTimepicker } from "@syncfusion/ej2-vue-calendars";
 
+//create var
 var today = new Date()
 const todos = ref([])
 const name = ref("")
@@ -11,17 +13,21 @@ const input_category = ref(null)
 const input_date = ref(new Date())
 const input_time = ref(new Date())
 
+//display today
 console.log("Thời gian hiện tại: " + today)
 console.log(typeof (todos))
 
+// sort asc
 const todos_asc = computed(() => todos.value.sort((a, b) => {
   return b.createdAt - a.createdAt
 }))
 
+//add to-do to to-do list
 const addTodo = () => {
   if (input_content.value.trim() === "" | input_category.value === null) {
     return
   }
+  //push obj
   todos.value.push({
     content: input_content.value,
     category: input_category.value,
@@ -36,8 +42,10 @@ const addTodo = () => {
   input_category.value = null
 }
 
+//remove to-do in list
 const removeTodo = todo => { todos.value = todos.value.filter(t => t !== todo) }
 
+//localStorage
 watch(todos, newVal => {
   localStorage.setItem("todos", JSON.stringify(newVal))
 }, { deep: true })
@@ -60,6 +68,7 @@ onMounted(() => {
     </section>
     <section class="create-todo">
       <h3>CREATE A TO-DO</h3>
+      <!-- use v-model in vue3 -->
       <form @submit.prevent="addTodo">
         <h4>What's on your to-do list?</h4>
         <input type="text" placeholder="e.g Make a to-do app by Vue3 " v-model="input_content" />
@@ -67,12 +76,14 @@ onMounted(() => {
         <!-- TinyMCE format -->
         <textarea placeholder="e.g Make a to-do app by Vue3" v-model="input_content"></textarea>
 
+        <!-- pick deadline/duration -->
         <h4 id="duration">Set duration:</h4>
         <div class="control_wrapper">
           <ejs-datepicker v-model="input_date"></ejs-datepicker>
           <ejs-timepicker v-model="input_time"></ejs-timepicker>
         </div>
 
+        <!-- category/type -->
         <h4>Pick a category</h4>
         <div class=" options">
           <label> <input type="radio" name="category" id="category1" value="business" v-model="input_category" /><span
