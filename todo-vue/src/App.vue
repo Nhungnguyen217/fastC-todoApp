@@ -18,10 +18,6 @@ const todos_asc = computed(() => todos.value.sort((a, b) => {
   return b.createdAt - a.createdAt
 }))
 
-function removeTime(date = new Date()) {
-  return new Date(date.toDateString());
-}
-
 const addTodo = () => {
   if (input_content.value.trim() === "" | input_category.value === null) {
     return
