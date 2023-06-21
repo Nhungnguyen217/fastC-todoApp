@@ -2,10 +2,8 @@
 import { ref, onMounted, computed, watch } from "vue"
 import { DatePickerComponent as EjsDatepicker } from '@syncfusion/ej2-vue-calendars';
 import { TimePickerComponent as EjsTimepicker } from "@syncfusion/ej2-vue-calendars";
-//Thư viện pick date
 
-// tạo các biến, mảng dữ liệu
-var today = new Date() //thời gian hiện tại
+var today = new Date()
 const todos = ref([])
 const name = ref("")
 const input_content = ref("")
@@ -16,17 +14,14 @@ const input_time = ref(new Date())
 console.log("Thời gian hiện tại: " + today)
 console.log(typeof (todos))
 
-// các hàm thực thi
 const todos_asc = computed(() => todos.value.sort((a, b) => {
   return b.createdAt - a.createdAt
 }))
 
-// xóa time detail 
 function removeTime(date = new Date()) {
   return new Date(date.toDateString());
 }
 
-//thêm todo vào danh sách to-do list
 const addTodo = () => {
   if (input_content.value.trim() === "" | input_category.value === null) {
     return
@@ -45,10 +40,8 @@ const addTodo = () => {
   input_category.value = null
 }
 
-// hàm xóa todo
 const removeTodo = todo => { todos.value = todos.value.filter(t => t !== todo) }
 
-//lưu vào localStorage
 watch(todos, newVal => {
   localStorage.setItem("todos", JSON.stringify(newVal))
 }, { deep: true })
@@ -64,7 +57,6 @@ onMounted(() => {
 
 </script>
   
-<!-- Sắp xếp -->
 <template>
   <main class="app">
     <section class="greeting">
@@ -79,14 +71,12 @@ onMounted(() => {
         <!-- TinyMCE format -->
         <textarea placeholder="e.g Make a to-do app by Vue3" v-model="input_content"></textarea>
 
-        <!-- Thiết lập thời hạn cho to-do -->
         <h4 id="duration">Set duration:</h4>
         <div class="control_wrapper">
           <ejs-datepicker v-model="input_date"></ejs-datepicker>
           <ejs-timepicker v-model="input_time"></ejs-timepicker>
         </div>
 
-        <!-- Phân loại to-do -->
         <h4>Pick a category</h4>
         <div class=" options">
           <label> <input type="radio" name="category" id="category1" value="business" v-model="input_category" /><span
@@ -102,11 +92,9 @@ onMounted(() => {
       </form>
     </section>
 
-    <!-- Hiển thị danh sách to-do -->
     <section class="todo-list">
       <h3>TO-DO LIST</h3>
       <div class="list">
-        <!-- lấy từ todos_asc -->
         <div v-for="todo in todos_asc" :class="`todo-item ${todo.done && 'done'}`">
           <label>
             <input type="checkbox" v-model="todo.done">
@@ -128,7 +116,7 @@ onMounted(() => {
       </div>
     </section>
 
-    <!-- Thông báo khi hết hạn to-do -->
+    <!-- Alert -->
     <div>
       <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
@@ -140,7 +128,7 @@ onMounted(() => {
           </button>
         </div>
         <div class="toast-body">
-          Hello, world! This is a toast message.
+          Oops, you miss to-do!
         </div>
       </div>
     </div>
