@@ -230,3 +230,7 @@ input:checked ~ .bubble::after {
   text-decoration: line-through;
   color: var(--grey);
 }
+
+#duration {
+  margin: 20px auto;
+}
