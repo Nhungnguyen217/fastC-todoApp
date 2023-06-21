@@ -5,12 +5,15 @@ import { TimePickerComponent as EjsTimepicker } from "@syncfusion/ej2-vue-calend
 //Thư viện pick date
 
 // tạo các biến, mảng dữ liệu
+var today = new Date() //thời gian hiện tại
 const todos = ref([])
 const name = ref("")
 const input_content = ref("")
 const input_category = ref(null)
 const input_date = ref(new Date())
 const input_time = ref(new Date())
+
+console.log("Thời gian hiện tại: " + today)
 
 // các hàm thực thi
 const todos_asc = computed(() => todos.value.sort((a, b) => {
@@ -32,8 +35,7 @@ const addTodo = () => {
     category: input_category.value,
     done: false,
     createdAt: new Date().getTime(),
-    dateEnd: input_date.value.getDate() + "-" + input_date.value.getMonth() + "-" + input_date.value.getFullYear(),
-    timeEnd: input_time.value.getTime()
+    dateEnd: input_date.value.getDate() + "-" + input_date.value.getMonth() + "-" + input_date.value.getFullYear() + " at " + input_time.value.getHours() + ":" + input_time.value.getMinutes(),
   })
 
   console.log(input_content.value)
@@ -78,8 +80,7 @@ onMounted(() => {
         <h4 id="duration">Set duration:</h4>
         <div class="control_wrapper">
           <ejs-datepicker v-model="input_date"></ejs-datepicker>
-          <ejs-timepicker></ejs-timepicker>
-          <p>Date : {{ input_time }}</p>
+          <ejs-timepicker v-model="input_time"></ejs-timepicker>
         </div>
 
         <!-- Phân loại to-do -->
