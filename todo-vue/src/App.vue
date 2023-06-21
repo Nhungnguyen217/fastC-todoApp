@@ -14,6 +14,7 @@ const input_date = ref(new Date())
 const input_time = ref(new Date())
 
 console.log("Thời gian hiện tại: " + today)
+console.log(typeof (todos))
 
 // các hàm thực thi
 const todos_asc = computed(() => todos.value.sort((a, b) => {
@@ -35,6 +36,7 @@ const addTodo = () => {
     category: input_category.value,
     done: false,
     createdAt: new Date().getTime(),
+    deadline: input_date.value.getTime(),
     dateEnd: input_date.value.getDate() + "-" + input_date.value.getMonth() + "-" + input_date.value.getFullYear() + " at " + input_time.value.getHours() + ":" + input_time.value.getMinutes(),
   })
 
@@ -59,6 +61,17 @@ onMounted(() => {
   name.value = localStorage.getItem("name") || ""
   todos.value = JSON.parse(localStorage.getItem("todos")) || []
 })
+
+// Kiểm tra thời hạn to-do
+// const deadline = () => {
+//   let i = 0;
+//   while (todos([i]))
+//     if (today > todos.deadline) {
+//       console.log("No")
+//     }
+// }
+// deadline()
+
 </script>
   
 <!-- Sắp xếp -->
@@ -124,6 +137,24 @@ onMounted(() => {
         </div>
       </div>
     </section>
+
+    <!-- Thông báo khi hết hạn to-do -->
+    <div>
+      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <img src="..." class="rounded mr-2" alt="...">
+          <strong class="mr-auto">Bootstrap</strong>
+          <small>11 mins ago</small>
+          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="toast-body">
+          Hello, world! This is a toast message.
+        </div>
+      </div>
+    </div>
+
   </main>
 </template>
 
