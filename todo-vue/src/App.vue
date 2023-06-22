@@ -3,7 +3,7 @@
 import { ref, onMounted, computed, watch } from "vue"
 import { DatePickerComponent as EjsDatepicker } from '@syncfusion/ej2-vue-calendars';
 import { TimePickerComponent as EjsTimepicker } from "@syncfusion/ej2-vue-calendars";
-import Editor from '@tinymce/tinymce-vue' //#
+import Editor from '@tinymce/tinymce-vue'
 
 //create var
 var today = new Date()
@@ -72,10 +72,8 @@ onMounted(() => {
       <!-- use v-model in vue3 -->
       <form @submit.prevent="addTodo">
         <h4>What's on your to-do list?</h4>
-        <!-- <input type="text" placeholder="e.g Make a to-do app by Vue3 " v-model="input_content" /> -->
-
         <!-- tinymce -->
-        <Editor api-key="no-api-key" v-model="input_content" />
+        <Editor api-key="no-api-key" v-model="input_content" style=" height: 200" />
 
         <!-- pick deadline/duration -->
         <h4>Set duration:</h4>
